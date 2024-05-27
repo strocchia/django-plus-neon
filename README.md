@@ -1,1 +1,0 @@
-# django-plus-neon
