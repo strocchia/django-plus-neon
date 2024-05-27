@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Django + Neon</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-[#1a1a1a] py-10">
+    <main class="flex items-center justify-center">
+      <ul class="grid grid-cols-6 gap-4">
+        {% for element in elements %}
+        <li
+          class="relative flex flex-col p-5 text-center bg-[#00E699] hover:bg-[#ee6d00]"
+        >
+          <p class="absolute text-sm top-1 left-1">{{element.atomic_number}}</p>
+          <h2 class="font-medium">{{element.symbol}}</h2>
+          <p class="text-base">{{element.name}}</p>
+        </li>
+        {% endfor %}
+      </ul>
+    </main>
+  </body>
+</html>

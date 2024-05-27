@@ -98,7 +98,7 @@ DATABASES = {
             'sslmode': 'require'
         },
         'DISABLE_SERVER_SIDE_CURSORS': True,
-        'CONN_MAX_AGE': os.getenv('MAX_AGE', 30)
+        'CONN_MAX_AGE': int(os.getenv('CONN_MAX_AGE', 30))
     }
 }
 
