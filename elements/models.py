@@ -11,4 +11,4 @@ class Element(models.Model):
     def __str__(self) -> str:
         # return super().__str__()
 
-        return f"${self.name}: {self.symbol}"
+        return f"{self.name}:  [ {self.symbol} ]"

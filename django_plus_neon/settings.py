@@ -24,13 +24,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-e7@9_$fmwh9ibo14d-1jiy)=k+m7%!=1lxacglnt4&8timr9it'
+SECRET_KEY = 'p#6z0(-0(e%(hq*79a8pcmwnn9ps6q9aqo9z61+t@c48#uiqox'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = True
 DEBUG = os.getenv('DEBUG', 'False').lower() in ('true', '1', 't')
 print(DEBUG)
 
+# ALLOWED_HOSTS = []
 ALLOWED_HOSTS = ['*']
 
 
@@ -44,7 +45,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'elements'
+    # third-party
+    'rest_framework',
+    'corsheaders',
+
+    'elements',
+    'menu'
 ]
 
 MIDDLEWARE = [
@@ -55,7 +61,16 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'corsheaders.middleware.CorsMiddleware'
 ]
+
+# CORS_ALLOWED_ORIGINS = [
+#     "http://localhost:3000",
+#     "http://127.0.0.1:3000"
+# ]
+
+CORS_ALLOW_ALL_ORIGINS = True
 
 ROOT_URLCONF = 'django_plus_neon.urls'
 
@@ -97,7 +112,7 @@ DATABASES = {
         'OPTIONS': {
             'sslmode': 'require'
         },
-        'DISABLE_SERVER_SIDE_CURSORS': True,
+        # 'DISABLE_SERVER_SIDE_CURSORS': True,
         'CONN_MAX_AGE': int(os.getenv('CONN_MAX_AGE', 30))
     }
 }
