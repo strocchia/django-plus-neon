@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'elements'
 ]
 
 MIDDLEWARE = [
@@ -88,13 +90,15 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': os.getenv('PGDATABASE'),
-        'HOST': os.getenv('PGHOST'),
         'USER': os.getenv('PGUSER'),
         'PASSWORD': os.getenv('PGPASSWORD'),
+        'HOST': os.getenv('PGHOST'),
         'PORT': os.getenv('PGPORT', 5432),
         'OPTIONS': {
             'sslmode': 'require'
-        }
+        },
+        'DISABLE_SERVER_SIDE_CURSORS': True,
+        'CONN_MAX_AGE': os.getenv('MAX_AGE', 30)
     }
 }
 
