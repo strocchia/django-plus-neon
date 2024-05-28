@@ -1,0 +1,9 @@
+.menu-container {
+  max-width: 70%;
+  height: 90vh;
+  margin: 0 auto;
+  padding: 1rem;
+  background: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
