@@ -5,6 +5,8 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
+import MenuItem from "@/components/MenuItem";
+
 /**
  * fetch menu data
  */
@@ -16,6 +18,10 @@ async function getData() {
   return res.json();
 }
 
+async function doDelete(id) {
+  console.log("deleting..." + id);
+}
+
 export default function Home() {
   const [menuItems, setMenuItems] = useState(null);
 
@@ -25,11 +31,24 @@ export default function Home() {
   useEffect(() => {
     const fetchData = async () => {
       const data = await getData();
+      console.log(data);
       setMenuItems(data);
     };
 
     fetchData().catch(console.error);
   }, []);
 
-  return <div>{JSON.stringify(menuItems, null, 2)}</div>;
+  return (
+    <div>
+      {menuItems?.map((item) => (
+        <MenuItem
+          id={item.id}
+          name={item.name}
+          price={item.price}
+          doEdit={() => {}}
+          doDelete={(id) => doDelete(id)}
+        />
+      ))}
+    </div>
+  );
 }
