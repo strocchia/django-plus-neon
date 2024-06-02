@@ -83,8 +83,8 @@ export default function Home() {
         Add
       </button>
       {displaySuccessMessage.show && (
-        // <p className="text-[#008000]">
-        <p className="text-[rgb(0,128,0)]">
+        // {/* // <p className="text-[#008000]"> */}
+        <p className="ml-5 mt-2 mb-5 font-semibold text-[rgb(0,128,0)]">
           {displaySuccessMessage.type === Types.ADD
             ? "Added a "
             : "Modified a "}

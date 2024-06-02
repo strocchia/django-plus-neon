@@ -7,6 +7,11 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
+/**
+ *
+ * @param {Object} data
+ * @returns
+ */
 async function createMenu(data) {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/menu/`, {
     method: "POST",
@@ -30,7 +35,7 @@ export default function Page() {
    *
    * @param {Event} evt form submission event (evt for short).
    */
-  const doFinish = (evt) => {
+  const doFinishAdd = (evt) => {
     evt.preventDefault();
     setLoading(true);
 
@@ -49,7 +54,7 @@ export default function Page() {
   });
 
   return (
-    <form className="w-1/2" onSubmit={doFinish}>
+    <form className="w-1/2" onSubmit={doFinishAdd}>
       <div className="flex flex-col p-3">
         <label htmlFor="name">Name</label>
         <input
