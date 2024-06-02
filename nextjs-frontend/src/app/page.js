@@ -18,12 +18,18 @@ async function getData() {
   return res.json();
 }
 
-async function doDelete(id) {
-  console.log("deleting..." + id);
-}
+const Types = Object.freeze({
+  ADD: "add",
+  UPDATE: "update",
+  BLANK: "",
+});
 
 export default function Home() {
   const [menuItems, setMenuItems] = useState(null);
+  const [displaySuccessMessage, setDisplaySuccessMessage] = useState({
+    show: false,
+    type: Types.BLANK,
+  });
 
   const router = useRouter();
   const params = useSearchParams();
@@ -38,14 +44,62 @@ export default function Home() {
     fetchData().catch(console.error);
   }, []);
 
+  useEffect(() => {
+    if (params && params.get("action")) {
+      setDisplaySuccessMessage({
+        show: true,
+        type: params.get("action"),
+      });
+    }
+  }, [params, router]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (displaySuccessMessage.show) {
+        setDisplaySuccessMessage({
+          show: false,
+          type: Types.BLANK,
+        });
+        router.push("/");
+      }
+    }, 2500);
+
+    return () => clearTimeout(timer);
+  }, [displaySuccessMessage]);
+
+  async function doDelete(id) {
+    console.log("deleting..." + id);
+    setMenuItems((items) => items.filter((it) => it.id !== id));
+  }
+
+  if (!menuItems) return <p>Loading...</p>;
+
   return (
     <div>
-      {menuItems?.map((item) => (
+      <button
+        className="bg-[#008000] text-[#fff] p-3 m-3"
+        onClick={() => router.push("/add")}
+      >
+        Add
+      </button>
+      {displaySuccessMessage.show && (
+        // <p className="text-[#008000]">
+        <p className="text-[rgb(0,128,0)]">
+          {displaySuccessMessage.type === Types.ADD
+            ? "Added a "
+            : "Modified a "}
+          menu item.
+        </p>
+      )}
+      {menuItems?.map((item, index) => (
         <MenuItem
+          key={item.id || index}
           id={item.id}
           name={item.name}
           price={item.price}
-          doEdit={() => {}}
+          doEdit={() => {
+            router.push(`/update/${item.id}`);
+          }}
           doDelete={(id) => doDelete(id)}
         />
       ))}

@@ -22,8 +22,11 @@ from elements.views import elements_list
 from routers import router
 from django.urls import include
 
+# import rest_framework
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', elements_list, name='elements_list'),
-    path('api/', include((router.urls, 'core_api'), namespace='core_api'))
+    path('api/', include((router.urls, 'core_api'), namespace='core_api')),
+    path('api-auth/', include('rest_framework.urls'))
 ]
