@@ -6,6 +6,7 @@ import React from "react";
 
 import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import CommonForm from "@/components/CommonForm";
 
 /**
  *
@@ -44,7 +45,7 @@ export default function Page() {
         router.push("/?action=add");
       })
       .catch(() => {
-        setError("Error occurred. Try again");
+        setError("Error occurred. Try again.");
         setLoading(false);
       });
   };
@@ -54,53 +55,15 @@ export default function Page() {
   });
 
   return (
-    <form className="w-1/2" onSubmit={doFinishAdd}>
-      <div className="flex flex-col p-3">
-        <label htmlFor="name">Name</label>
-        <input
-          type="text"
-          name="name"
-          className="px-2 py-1 border-black rounded-sm max-h-10"
-          value={formData.name}
-          onChange={(evt) =>
-            setFormData({ ...formData, name: evt.target.value })
-          }
-          required
-        />
-      </div>
-      <div className="flex flex-col p-3">
-        <label htmlFor="price">Price</label>
-        <input
-          type="number"
-          name="price"
-          min={0}
-          max={1000}
-          className="px-2 py-1 border-black rounded-sm max-h-10"
-          value={formData.price}
-          onChange={(evt) =>
-            setFormData({ ...formData, price: evt.target.value })
-          }
-          required
-        />
-      </div>
-      {/* {error && <p className="text-[#f44336]">{error}</p>} */}
-      {error && <p className="text-red-500">{error}</p>}
-      <div>
-        <button
-          type="submit"
-          className="p-3 mx-3 rounded-sm cursor-pointer hover:border-[0.5px] hover:border-white"
-          disabled={loading}
-        >
-          Submit
-        </button>
-        <button
-          type="button"
-          className="p-3 mx-10 rounded-sm cursor-pointer hover:border-[0.5px] hover:border-white"
-          onClick={() => router.push("/")}
-        >
-          {"<--"} Back
-        </button>
-      </div>
-    </form>
+    <div>
+      <CommonForm
+        doFinish={doFinishAdd}
+        goBack={() => router.push("/")}
+        formData={formData}
+        setFormData={setFormData}
+        error={error}
+        isLoading={loading}
+      />
+    </div>
   );
 }
