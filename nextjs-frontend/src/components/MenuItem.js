@@ -1,21 +1,4 @@
-/**
- *
- * @param {number} id
- */
-const deleteMenu = async (id) => {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/api/menu/${id}/`,
-    {
-      method: "DELETE",
-    }
-  );
-
-  if (!res.ok) throw new Error("failed to delete menu data");
-
-  console.log("menu delete", res);
-
-  return Promise.resolve();
-};
+import { deleteMenu } from "@/utils/menuFuncs";
 
 const MenuItem = ({ id, name, price, doEdit, doDelete }) => {
   return (

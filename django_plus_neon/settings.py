@@ -14,6 +14,7 @@ from pathlib import Path
 import os
 import dotenv
 
+# load postgres (PG) variables from .env file stashed at project root
 dotenv.load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -112,7 +113,7 @@ DATABASES = {
         'OPTIONS': {
             'sslmode': 'require'
         },
-        # 'DISABLE_SERVER_SIDE_CURSORS': True,
+        'DISABLE_SERVER_SIDE_CURSORS': True,
         'CONN_MAX_AGE': int(os.getenv('CONN_MAX_AGE', 30))
     }
 }

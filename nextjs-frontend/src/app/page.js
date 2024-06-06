@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
 import MenuItem from "@/components/MenuItem";
+import { TypesEnum } from "@/utils/menuFuncs";
 
 /**
  * fetch menu data
@@ -18,17 +19,11 @@ async function getData() {
   return res.json();
 }
 
-const Types = Object.freeze({
-  ADD: "add",
-  UPDATE: "update",
-  BLANK: "",
-});
-
 export default function Home() {
   const [menuItems, setMenuItems] = useState(null);
   const [displaySuccessMessage, setDisplaySuccessMessage] = useState({
     show: false,
-    type: Types.BLANK,
+    type: TypesEnum.BLANK,
   });
 
   const router = useRouter();
@@ -85,7 +80,7 @@ export default function Home() {
       {displaySuccessMessage.show && (
         // {/* // <p className="text-[#008000]"> */}
         <p className="ml-5 mt-2 mb-5 font-semibold text-[rgb(0,128,0)]">
-          {displaySuccessMessage.type === Types.ADD
+          {displaySuccessMessage.type === TypesEnum.ADD
             ? "Added a "
             : "Modified a "}
           menu item.
